@@ -1,10 +1,10 @@
-import { formExtraInfo, separeToComp } from "./utils.mjs"
+import { Rect } from "../utils"
+import { formExtraInfo, separeToComp } from "../utils/utils"
 
-export function scaleYForm(list, value) {
+export function scaleYForm(list: Rect, value: number): Rect {
     const f = separeToComp(list)
     const config = formExtraInfo(list)
 
-    // console.log(yCoef, xCoef)
     const o = [...f.part1, ...f.part2].map((each, index) => {
 
         let [x, y] = each
@@ -28,11 +28,11 @@ export function scaleYForm(list, value) {
             return [x - (value * vf) * rcoef, y - value * vf]
         return each
     })
-    return o
+    return o as Rect
 }
 
 
-export function scaleXForm(list, value) {
+export function scaleXForm(list: Rect, value: number): Rect {
     let t = rot(list)
     let y = scaleYForm(t, value)
     let result = rot(y)
@@ -40,9 +40,9 @@ export function scaleXForm(list, value) {
 }
 
 
-export function rot(list) {
+export function rot(list: Rect): Rect {
     const f = separeToComp(list)
 
     const t = list.map(each => [each[1], each[0]])
-    return t
+    return t as Rect
 }

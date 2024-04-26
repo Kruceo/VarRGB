@@ -1,4 +1,6 @@
-function formExtraInfo(list) {
+import { Point, Rect } from "."
+
+function formExtraInfo(list: Rect) {
     const f = separeToComp(list)
 
     const topDeltaX = f.part1[1][0] - f.part1[0][0]
@@ -40,28 +42,26 @@ function formExtraInfo(list) {
     }
 }
 
-function separeToComp(list) {
+function separeToComp(list: Rect) {
     const d = list.sort((a, b) => a[1] - b[1])
     const part1 = d.slice(0, 2).sort((a, b) => a[0] - b[0])
     const part2 = d.slice(2, 4).sort((a, b) => a[0] - b[0])
     return { part1, part2 }
 }
 
-function sortToRender(list) {
-    // return list
+function sortToRender(list: Rect) {
     const d = list.sort((a, b) => a[1] - b[1])
-    // return d
     const part1 = d.slice(0, 2).sort((a, b) => a[0] - b[0])
     const part2 = d.slice(2, 4).sort((a, b) => b[0] - a[0])
 
     return [...part1, ...part2]
 }
 
-function distanceBetweenPoints(point1, point2) {
-
+function distanceBetweenPoints(point1: Point, point2: Point) {
     var deltaX = point2[0] - point1[0];
     var deltaY = point2[1] - point1[1];
     var distancia = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    
     return distancia;
 
 }
