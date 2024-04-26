@@ -1,5 +1,5 @@
- // const dfs = mouseX - x2    // diferença entre o mouseX e o x do ponto de baixo da linha traçada 
-    // const pfs = y2 - y1        // diferenca entre os "y" dos pontos da linha traçada 
-    // const tfs = dfs / pfs      // relação entre a diferença do mouse e a diferenca de altura da linha traçada 
-    // const mfs = y1 - mouseY  // diferença do ponto y mais alto da linha traçada com o y do mouse 
-    // const newMouseX = mouseX - mfs * tfs
+// const dfs = mouseX - x2    // diferença entre o mouseX e o x do ponto de baixo da linha traçada 
+// const pfs = y2 - y1        // diferenca entre os "y" dos pontos da linha traçada 
+// const tfs = dfs / pfs      // relação entre a diferença do mouse e a diferenca de altura da linha traçada 
+// const mfs = y1 - mouseY  // diferença do ponto y mais alto da linha traçada com o y do mouse 
+// const newMouseX = mouseX - mfs * tfs
