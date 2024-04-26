@@ -66,4 +66,25 @@ function distanceBetweenPoints(point1: Point, point2: Point) {
 
 }
 
-export { sortToRender, separeToComp, formExtraInfo, distanceBetweenPoints }
+function distanceToSides(poinits: Rect, mouseX: number, mouseY: number) {
+    const f = separeToComp(poinits)
+
+    const config = formExtraInfo(poinits)
+
+    const mouseLdiffY = mouseY - f.part1[0][1]
+    const mouseRdiffY = mouseY - f.part1[1][1]
+
+    const lAdd = mouseLdiffY * config.leftPixelDeltaX
+
+    const rAdd = mouseRdiffY * config.rightPixelDeltaX
+
+    let point1 = { x: f.part1[0][0] + lAdd, y: mouseY }
+    let point2 = { x: f.part1[1][0] + rAdd, y: mouseY }
+
+    let mouseToPointDeltaL = point1.x - mouseX
+    let mouseToPointDeltaR = point2.x - mouseX
+
+    return { left: mouseToPointDeltaL, right: mouseToPointDeltaR }
+}
+
+export { distanceToSides,sortToRender, separeToComp, formExtraInfo, distanceBetweenPoints }

@@ -1,5 +1,5 @@
-import { rot, scaleXForm, scaleYForm } from "./scales/scale"
-import { distanceBetweenPoints, formExtraInfo, separeToComp, sortToRender } from "./utils/utils"
+import { rot, scaleXForm, scaleYForm } from "./utils/scale"
+import { distanceBetweenPoints, distanceToSides, formExtraInfo, separeToComp, sortToRender } from "./utils/rect"
 import type { Rect, Point } from "./utils/index"
 const canvas = document.querySelector("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
@@ -15,9 +15,7 @@ setTimeout(() => {
     pointsCache = ""
 }, 250)
 
-const points: Rect =
-    // [[150, 50], [250, 30], [330, 550], [50, 500]]
-load()
+const points: Rect = load()
 
 let pointsCache = ""
 setInterval(() => {
@@ -28,13 +26,12 @@ setInterval(() => {
     ctx.drawImage(vid, 0, 0)
     ctx.strokeStyle = "#f00"
     points.forEach(each => {
-        ctx.ellipse(each[0], each[1], 20, 20, 0, 0, 2 * Math.PI)
+        // ctx.ellipse(each[0], each[1], 20, 20, 0, 0, 2 * Math.PI)
         ctx.stroke()
         ctx.beginPath()
-        ctx.fillText(each[0] + "," + each[1], each[0], each[1])
+        ctx.fillText(each[0] + ", " + each[1], each[0], each[1])
     })
-
-    renderForm(points, "#f00")
+    renderForm(points, "#00f")
 
     renderLine(ctx, points, mouseX, mouseY)
 }, 1000 / 60)
@@ -138,58 +135,18 @@ function calcXLinePercentBetweenPoints(points: Rect, percent: number): [Point, P
  * @param {number} mouseX 
  * @param {number} mouseY 
  */
-function renderLine(ctx: CanvasRenderingContext2D, points: Rect, mouseX: number, mouseY: number) {
-    const f = separeToComp(points)
-
-    const mouseXdiff = mouseX - f.part1[0][0]
-
-    const percentage = mouseXdiff / (f.part1[1][0] - f.part1[0][0])
-
-    const [[x1, y1], [x2, y2]] = calcYLinePercentBetweenPoints(points, percentage)
-
-    ctx.moveTo(x1, y1)
-    ctx.lineTo(x2, y2)
-    // ctx.stroke()
-    ctx.beginPath()
-
-    t(points, mouseX, mouseY)
-}
-
-
-function t(poinits: Rect, mouseX: number, mouseY: number) {
-
+function renderLine(ctx: CanvasRenderingContext2D, points: Rect, mouseX: number, mouseY: number,color?:string) {
     const distSide = distanceToSides(points, mouseX, mouseY)
 
-    const sideFullDist = distSide.left + distSide.right
+    const sideFullDist = distSide.left - distSide.right
 
-    const line = calcYLinePercentBetweenPoints(poinits, distSide.left / sideFullDist)
-
+    const line = calcYLinePercentBetweenPoints(points, distSide.left / sideFullDist)
+    ctx.beginPath()
+    ctx.strokeStyle = color??"#f80"
     ctx.moveTo(line[0][0],line[0][1])
 
     ctx.lineTo(line[1][0],line[1][1])
 
     ctx.stroke()
     ctx.beginPath()
-}
-
-
-function distanceToSides(poinits: Rect, mouseX: number, mouseY: number) {
-    const f = separeToComp(poinits)
-
-    const config = formExtraInfo(poinits)
-
-    const mouseLdiffY = mouseY - f.part1[0][1]
-    const mouseRdiffY = mouseY - f.part1[1][1]
-
-    const lAdd = mouseLdiffY * config.leftPixelDeltaX
-
-    const rAdd = mouseRdiffY * config.rightPixelDeltaX
-
-    let point1 = { x: f.part1[0][0] + lAdd, y: mouseY }
-    let point2 = { x: f.part1[1][0] + rAdd, y: mouseY }
-
-    let mouseToPointDeltaL = point1.x - mouseX
-    let mouseToPointDeltaR = point2.x - mouseX
-
-    return { left: Math.abs(mouseToPointDeltaL), right: Math.abs(mouseToPointDeltaR) }
 }

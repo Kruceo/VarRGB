@@ -1,5 +1,5 @@
-import { Rect } from "../utils"
-import { formExtraInfo, separeToComp } from "../utils/utils"
+import { Rect } from "."
+import { formExtraInfo, separeToComp } from "./rect"
 
 export function scaleYForm(list: Rect, value: number): Rect {
     const f = separeToComp(list)
