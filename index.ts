@@ -26,7 +26,7 @@ setInterval(() => {
     ctx.drawImage(vid, 0, 0)
     ctx.strokeStyle = "#f00"
     points.forEach(each => {
-        // ctx.ellipse(each[0], each[1], 20, 20, 0, 0, 2 * Math.PI)
+        ctx.ellipse(each[0], each[1], 40, 40, 0, 0, 2 * Math.PI)
         ctx.stroke()
         ctx.beginPath()
         ctx.fillText(each[0] + ", " + each[1], each[0], each[1])
@@ -51,7 +51,7 @@ canvas.onmousemove = (e) => {
         return acum
     }, { dis: 20000, index: -1 })
 
-    if (mouseDown && closer.dis < 20) {
+    if (mouseDown && closer.dis < 40) {
         points[closer.index] = [mouseX, mouseY]
     }
 }
