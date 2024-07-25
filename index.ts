@@ -73,8 +73,11 @@ function renderForm(list, color, fillColor?) {
 
 function load(): Rect {
     const stored = window.localStorage.getItem("points")
-    if (!stored) return [[10, 10], [30, 30], [30, 10], [10, 30]]
-
+    if (!stored) return [
+        [473, 246],
+        [1021, 259],
+        [238, 547],
+        [1041, 548]]
     return stored.split(",").reduce((acc, val) => {
         const t = acc.length - 1
 
@@ -135,17 +138,17 @@ function calcXLinePercentBetweenPoints(points: Rect, percent: number): [Point, P
  * @param {number} mouseX 
  * @param {number} mouseY 
  */
-function renderLine(ctx: CanvasRenderingContext2D, points: Rect, mouseX: number, mouseY: number,color?:string) {
+function renderLine(ctx: CanvasRenderingContext2D, points: Rect, mouseX: number, mouseY: number, color?: string) {
     const distSide = distanceToSides(points, mouseX, mouseY)
 
     const sideFullDist = distSide.left - distSide.right
 
     const line = calcYLinePercentBetweenPoints(points, distSide.left / sideFullDist)
     ctx.beginPath()
-    ctx.strokeStyle = color??"#f80"
-    ctx.moveTo(line[0][0],line[0][1])
+    ctx.strokeStyle = color ?? "#f80"
+    ctx.moveTo(line[0][0], line[0][1])
 
-    ctx.lineTo(line[1][0],line[1][1])
+    ctx.lineTo(line[1][0], line[1][1])
 
     ctx.stroke()
     ctx.beginPath()

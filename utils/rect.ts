@@ -75,7 +75,6 @@ function distanceToSides(poinits: Rect, mouseX: number, mouseY: number) {
     const mouseRdiffY = mouseY - f.part1[1][1]
 
     const lAdd = mouseLdiffY * config.leftPixelDeltaX
-
     const rAdd = mouseRdiffY * config.rightPixelDeltaX
 
     let point1 = { x: f.part1[0][0] + lAdd, y: mouseY }
